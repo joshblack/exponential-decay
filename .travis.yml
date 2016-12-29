@@ -1,0 +1,6 @@
+language: nodejs
+nodejs:
+  - '6'
+scripts:
+  - npm run flow
+  - npm test

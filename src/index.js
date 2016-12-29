@@ -1,13 +1,19 @@
+/* @flow */
 import { curve } from './curve';
 
 export default class Decay {
-  constructor(rate = 0.1, max = 10000) {
+  value: number;
+  __stepCount__: number;
+  _curve: (number) => number;
+  _handler: () => any;
+
+  constructor(rate: number = 0.1, max: number = 10000): void {
     this.value = 0;
     this.__stepCount__ = 1;
     this._curve = curve(rate, max);
   }
 
-  getValue() {
+  getValue(): number {
     const value = this.value;
 
     this._step();
@@ -15,25 +21,26 @@ export default class Decay {
     return value;
   }
 
-  _step() {
-    const value = this._curve(this.__stepCount__++);
+  _step(): void {
+    const value: number = this._curve(this.__stepCount__++);
 
     this.value = value;
   }
 
-  subscribe(handler) {
+  subscribe(handler: () => any): void {
     this._handler = handler;
     this._callback();
   }
 
-  _callback() {
+  _callback(): void {
+    const delay: number = this.getValue();
+
     this._handler();
 
-    const delay = this.getValue();
-    window.setTimeout(() => this._callback(), delay);
+    window.setTimeout((): void => this._callback(), delay);
   }
 
-  reset() {
+  reset(): void {
     this.value = 0;
   }
 }
