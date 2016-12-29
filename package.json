@@ -10,7 +10,12 @@
     "test": "jest"
   },
   "main": "lib/index.js",
+  "homepage": "https://github.com/joshblack/exponential-decay",
+  "repository": "joshblack/exponential-decay",
   "license": "MIT",
+  "files": [
+    "lib/"
+  ],
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-jest": "^18.0.0",
